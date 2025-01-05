@@ -13,7 +13,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices."luks-537fc36d-adea-41da-8140-40ba1c5402a4".device = "/dev/disk/by-uuid/537fc36d-adea-41da-8140-40ba1c5402a4";
+  boot.initrd.luks.devices."luks-175dfcbb-8800-4adc-887d-c8afa80b2d2b".device = "/dev/disk/by-uuid/175dfcbb-8800-4adc-887d-c8afa80b2d2b";
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -45,7 +45,11 @@ hardware.pulseaudio.support32Bit = true;
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-
+services.xserver.videoDrivers = [ "intel" ];
+  services.xserver.deviceSection = ''
+    Option "DRI" "2"
+    Option "TearFree" "true"
+  '';
   # Configure keymap in X11
   services.xserver = {
     layout = "us";
@@ -89,8 +93,7 @@ services.mullvad-vpn.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-hardware.openrazer.enable = true;
-hardware.openrazer.users = ["anon"];
+
 services.printing.enable = true;
 services.avahi = {
   enable = true;
